@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador de Departamentos</title>
+</head>
+<body>
+    <div align="center">
+        <h1>Lista de Departamentos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Valor Arriendo</th>
+                    <th>Camas</th>
+                    <th>Direccion</th>
+                    <th>Comuna</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="depto: ${listaDepartamentos}">
+                    <td th:text="${depto.id}"></td>
+                    <td th:text="${depto.nombre}"></td>
+                    <td th:text="${depto.valor}"></td>
+                    <td th:text="${depto.camas}"></td>
+                    <td th:text="${depto.direccion}"></td>
+                    <td th:text="${depto.comuna}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
