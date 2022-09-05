@@ -12,9 +12,12 @@ public class DepartamentoController {
     @Autowired
     private DepartamentoServiceImpl departamentoService;
 
+    /**
+
     @GetMapping("/")
     public String viewHomePage(Model model){
         model.addAttribute("listaDepartamentos", departamentoService.getAllDepartamentos());
         return "index";
     }
+    */
 }
