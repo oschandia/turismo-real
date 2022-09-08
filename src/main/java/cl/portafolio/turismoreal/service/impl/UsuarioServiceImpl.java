@@ -1,10 +1,11 @@
-package cl.portafolio.turismoreal.service;
+package cl.portafolio.turismoreal.service.impl;
 
 import cl.portafolio.turismoreal.dao.Perfil;
 import cl.portafolio.turismoreal.dao.Usuario;
 import cl.portafolio.turismoreal.domain.UsuarioDto;
 import cl.portafolio.turismoreal.mapper.UserDtoToUserMapper;
 import cl.portafolio.turismoreal.repositorio.UsuarioRepository;
+import cl.portafolio.turismoreal.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,9 +16,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService{
+public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -30,10 +32,17 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public Usuario save(UsuarioDto usuarioDto) {
-        Usuario user = mapper.map(usuarioDto);
-        Perfil perfil = perfilService.findById(1L);
-        user.setPerfil(perfil);
-        return usuarioRepository.save(user);
+
+        if(Objects.isNull( usuarioRepository.findByEmail(usuarioDto.getEmail()))){
+            Usuario user = mapper.map(usuarioDto);
+            Perfil perfil = perfilService.findById(1L);
+            user.setPerfil(perfil);
+            return usuarioRepository.save(user);
+        } else {
+            return null;
+        }
+
+
     }
 
     @Override

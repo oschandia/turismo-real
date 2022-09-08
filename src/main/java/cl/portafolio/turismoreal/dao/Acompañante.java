@@ -12,7 +12,7 @@ public class Acompañante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idacompaniante")
-    private int id;
+    private Long id;
 
     @Column(name = "rut")
     private String rut;

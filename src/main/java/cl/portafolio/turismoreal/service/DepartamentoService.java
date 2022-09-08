@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DepartamentoService {
     List<Departamento> getAllDepartamentos();
+    Departamento findById(Long id);
 }

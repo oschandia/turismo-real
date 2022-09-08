@@ -1,7 +1,6 @@
 package cl.portafolio.turismoreal.rest.controller;
 
 import cl.portafolio.turismoreal.domain.UsuarioDto;
-import cl.portafolio.turismoreal.service.DepartamentoServiceImpl;
 import cl.portafolio.turismoreal.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/registration")
@@ -26,7 +27,6 @@ public class UsuarioRegistroController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") UsuarioDto usuarioDto){
-        usuarioService.save(usuarioDto);
-        return "redirect:/registration?success";
+        return Objects.nonNull(usuarioService.save(usuarioDto)) ? "redirect:/registration?success" : "redirect:/registration?fail";
     }
 }

@@ -5,22 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MainController {
+@RequestMapping("/reservation")
+public class ReservationController {
 
     @Autowired
     private DepartamentoServiceImpl departamentoService;
 
-    @GetMapping("/login")
-    public String showRegistrationForm() {
-        return "login";
+    @GetMapping
+    public String showReservationPage(Model model, @RequestParam Long id) {
+        model.addAttribute("depto", departamentoService.findById(id));
+        return "reservation";
     }
-
-    @GetMapping("/")
-    public String home(Model model) {
-        model.addAttribute("departamentos", departamentoService.getAllDepartamentos());
-        return "index";
-    }
-
 }

@@ -12,7 +12,7 @@ public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iddepto")
-    private int id;
+    private Long id;
 
     @Column(name = "nombre")
     private String nombre;
