@@ -55,7 +55,7 @@
                     </a>
                 </div>
             </div>
-            <h3 th:text="${depto.direccion + ' ' + depto.comuna}"></h3>
+            <p th:text="${depto.direccion + ' ,' + depto.comuna}"></p>
             <p th:text="${'camas: ' + depto.camas}"></p>
             <p th:text="${'valor: $'+ depto.valor + ' por noche'}"></p>
         </div>

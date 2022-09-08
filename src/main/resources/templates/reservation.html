@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+  <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
   <style>
     body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     .mySlides {display: none}
@@ -27,20 +29,62 @@
     <h3 th:text="${'Desde $' + depto.valor}"></h3>
     <h6 th:text="${'por noche'}"></h6>
     <hr>
-    <form action="/action_page.php" target="_blank">
+    <form th:action="@{/reservation}" method="post" th:object="${reservation}">
+      <input type="hidden" th:value="1" th:field="*{estadoReserva}" />
+      <input type="hidden" th:value="${reservation.departamentoId}" th:field="*{departamentoId}" />
       <p><label><i class="fa fa-calendar-check-o"></i> Check In</label></p>
-      <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckIn" required>
+      <div class="input-group date">
+        <input type="date" class="form-control" autocomplete="off" th:field="*{checkin}"/>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+        </div>
+      </div>
+      <p></p>
       <p><label><i class="fa fa-calendar-o"></i> Check Out</label></p>
-      <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="CheckOut" required>
+      <div class="input-group date">
+        <input type="date" class="form-control" autocomplete="off" th:field="*{checkout}"/>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+        </div>
+      </div>
+      <p></p>
       <p><label><i class="fa fa-male"></i> Adultos</label></p>
-      <input class="w3-input w3-border" type="number" value="1" name="Adults" min="1" max="6">
+      <input class="w3-input w3-border" type="number" th:field="*{adults}" value="1" name="Adults" min="1" th:max="${depto.camas + 1}">
+      <p></p>
       <p><label><i class="fa fa-child"></i> Niños</label></p>
-      <input class="w3-input w3-border" type="number" value="0" name="Kids" min="0" max="6">
-      <p><button class="w3-button w3-block w3-green w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Search availability</button></p>
+      <input class="w3-input w3-border" type="number"  th:field="*{childs}" value="0" name="Kids" min="0" th:max="${depto.camas}">
+      <p></p>
+      <div class="form-group">
+        <label class="control-label" for="nombre"> Nombre </label>
+        <input id="nombre" class="form-control" th:field="*{nombre}"
+               required autofocus="autofocus" />
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label class="control-label" for="apellido"> Apellido </label>
+        <input id="apellido" class="form-control" th:field="*{apellido}"
+               required autofocus="autofocus" />
+      </div>
+      <p></p>
+      <div class="form-group">
+        <label class="control-label" for="rut"> Rut </label>
+        <input id="rut" class="form-control" th:field="*{rut}"
+               required autofocus="autofocus" />
+      </div>
+      <p></p>
+      <p><label><i class="fa fa-calendar-o"></i> Fecha Nacimiento</label></p>
+      <div class="input-group date">
+        <input type="date" class="form-control"  autocomplete="off" th:field="*{fechaNacimiento}"/>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+        </div>
+      </div>
+      <p></p>
+      <p><button class="w3-button w3-block w3-green w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Crear Reserva</button></p>
     </form>
   </div>
   <div class="w3-bar-block">
-    <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i> Departamento</a>
+    <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i>Departamento</a>
   </div>
 </nav>
 
@@ -79,9 +123,12 @@
 
   <!-- Push down content on small screens -->
   <div class="w3-hide-large" style="margin-top:80px"></div>
-
   <!-- Slideshow Header -->
   <div class="w3-container" id="apartment">
+    <!-- success message -->
+    <div style="margin-top:80px" th:if="${param.success}">
+      <div class="alert alert-info">Felicitaciones, tu reserva se ha ingresado exitosamente, para confirmarla deberas ingresar los datos de tus acompañantes y el abono correspondiente.</div>
+    </div>
     <h2 class="w3-text-green">The Apartment</h2>
     <div class="w3-display-container mySlides">
       <img src="../static/img/living-room.jpg" th:src="@{img/living-room.jpg}"  style="width:100%;margin-bottom:-6px">
@@ -138,29 +185,27 @@
     </div>
     <hr>
 
-    <h4><strong>Amenities</strong></h4>
+    <h4><strong>Servicios Incluidos</strong></h4>
     <div class="w3-row w3-large">
       <div class="w3-col s6">
-        <p><i class="fa fa-fw fa-shower"></i> Shower</p>
+        <p><i class="fa fa-fw fa-shower"></i> Ducha</p>
         <p><i class="fa fa-fw fa-wifi"></i> WiFi</p>
         <p><i class="fa fa-fw fa-tv"></i> TV</p>
       </div>
       <div class="w3-col s6">
-        <p><i class="fa fa-fw fa-cutlery"></i> Kitchen</p>
-        <p><i class="fa fa-fw fa-thermometer"></i> Heating</p>
-        <p><i class="fa fa-fw fa-wheelchair"></i> Accessible</p>
+        <p><i class="fa fa-fw fa-cutlery"></i> Cocina</p>
+        <p><i class="fa fa-fw fa-thermometer"></i> Aire Acondicionado</p>
+        <p><i class="fa fa-fw fa-wheelchair"></i> Accesible</p>
       </div>
     </div>
     <hr>
 
-    <h4><strong>Extra Info</strong></h4>
-    <p>Our apartment is really clean and we like to keep it that way. Enjoy the lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
+    <h4><strong>Servicios Extra</strong></h4>
+    <p>TBD.</p>
+    <p>Aceptamos: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
     <hr>
   </div>
   <hr>
-
-  <footer class="w3-container w3-padding-16" style="margin-top:32px">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></footer>
 
   <!-- End page content -->
 </div>
@@ -205,6 +250,5 @@
     dots[slideIndex-1].className += " w3-opacity-off";
   }
 </script>
-
 </body>
 </html>

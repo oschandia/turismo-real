@@ -3,6 +3,7 @@ package cl.portafolio.turismoreal.dao;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -10,7 +11,8 @@ import javax.persistence.*;
 public class Departamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "depto_id_seq_gen")
+    @SequenceGenerator(name = "depto_id_seq_gen", sequenceName = "departamento_iddepto_seq", allocationSize = 1)
     @Column(name = "iddepto")
     private Long id;
 
@@ -32,4 +34,14 @@ public class Departamento {
 
     @Column(name = "comuna")
     private String comuna;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "deptoservicio",
+            joinColumns = { @JoinColumn(name = "iddepto") },
+            inverseJoinColumns = { @JoinColumn(name = "idservicio") })
+    private Set<Servicio> servicios;
 }

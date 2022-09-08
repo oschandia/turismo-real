@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AcompañanteService {
     List<Acompañante> getAllCompanions();
+    Acompañante save(Acompañante acompañante);
 }

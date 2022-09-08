@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class Acompañante {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "acompañante_id_seq_gen")
+    @SequenceGenerator(name = "acompañante_id_seq_gen", sequenceName = "cliente_idcliente_seq", allocationSize = 1)
     @Column(name = "idacompaniante")
     private Long id;
 
