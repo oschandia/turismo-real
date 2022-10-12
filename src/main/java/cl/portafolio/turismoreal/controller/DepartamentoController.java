@@ -1,4 +1,4 @@
-package cl.portafolio.turismoreal.rest.controller;
+package cl.portafolio.turismoreal.controller;
 
 import cl.portafolio.turismoreal.service.impl.DepartamentoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,20 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class MainController {
+public class DepartamentoController {
 
     @Autowired
     private DepartamentoServiceImpl departamentoService;
 
-    @GetMapping("/login")
-    public String showRegistrationForm() {
-        return "login";
-    }
-
-    @GetMapping("/")
-    public String home(Model model) {
+    @GetMapping("/departments")
+    public String viewHomePage(Model model){
         model.addAttribute("departamentos", departamentoService.getAllDepartamentos());
-        return "index";
+        return "departments";
     }
-
 }

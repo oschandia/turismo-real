@@ -33,6 +33,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav w3-right">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/client/reservations}">Reservas</a></li>
                 <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
             </ul>
         </div>

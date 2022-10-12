@@ -1,4 +1,4 @@
-package cl.portafolio.turismoreal.rest.controller;
+package cl.portafolio.turismoreal.controller;
 
 import cl.portafolio.turismoreal.domain.UsuarioDto;
 import cl.portafolio.turismoreal.service.UsuarioService;

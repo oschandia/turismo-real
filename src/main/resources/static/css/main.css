@@ -1,0 +1,98 @@
+body {
+    color: #f8f8f2;
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+}
+
+table{
+    width: 80%;
+    margin: 40px auto;
+    background: #44475a;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 5px 10px #383a44;
+}
+
+table.list{
+    margin-left: 10px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 5px 10px transparent;
+}
+
+th{
+    text-align: center;
+    color: #f8f8f2;
+}
+
+td{
+    color: #f8f8f2;
+}
+
+label{
+    color: #f8f8f2;
+}
+
+input[type="text"],input[type="number"]{
+    width:91%;
+    padding:12px 20px;
+    margin:8px 0;
+    display: inline-block;
+    border: 1px solid #f8f8f2;
+    border-radius: 4px;
+}
+
+input[type="submit"],input[type="reset"]{
+    background: #8be9fd;
+    padding:6px 12px;
+    margin:15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+input[type="submit"]:hover{
+    background: #f8f8f2;
+}
+
+input[type="reset"]:hover{
+    background: #f8f8f2;
+}
+
+button{
+    background: #8be9fd;
+    padding:6px 12px;
+    margin:15px 0 10px;
+    display: inline-block;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover{
+    background:#f8f8f2;
+}
+
+button[type="cancel"]{
+    background:#ff5555;
+}
+
+button[type="cancel"]:hover{
+    background:#f8f8f2;
+}
+
+button[type="pay"]{
+    background:#50fa7b;
+}
+
+button[type="pay"]:hover{
+    background:#f8f8f2;
+}

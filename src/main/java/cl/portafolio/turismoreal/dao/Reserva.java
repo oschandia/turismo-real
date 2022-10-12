@@ -19,7 +19,7 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "reserva_id_seq_gen")
-    @SequenceGenerator(name = "reserva_id_seq_gen", sequenceName = "cliente_idcliente_seq", allocationSize = 1)
+    @SequenceGenerator(name = "reserva_id_seq_gen", sequenceName = "reserva_seq", allocationSize = 1)
     @Column(name = "idreserva")
     private Long id;
 

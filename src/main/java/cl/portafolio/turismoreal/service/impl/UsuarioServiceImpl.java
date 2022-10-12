@@ -35,14 +35,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         if(Objects.isNull( usuarioRepository.findByEmail(usuarioDto.getEmail()))){
             Usuario user = mapper.map(usuarioDto);
-            Perfil perfil = perfilService.findById(1L);
+            Perfil perfil = perfilService.findById(3L);
             user.setPerfil(perfil);
             return usuarioRepository.save(user);
         } else {
             return null;
         }
-
-
     }
 
     @Override
